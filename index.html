@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#163f5c">
+  <meta name="description" content="Pacote territorial anonimizado com dados agregados para auditoria científica.">
+  <title>Painel territorial anonimizado</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Protótipo demonstrável — operação territorial de diagnóstico socioambiental</p>
+      <h1>Painel territorial anonimizado</h1>
+      <p class="subtitle">Indicadores territoriais agregados e explicáveis</p>
+    </div>
+    <div class="status"><span class="dot"></span> Dados locais disponíveis</div>
+  </header>
+
+  <div class="warning" role="alert">
+    <strong>Aviso metodológico:</strong> os 557 questionários (amostra total) e os 83 do diagnóstico porta a porta formam amostras de conveniência. Percentuais descrevem a amostra e não estimam a população municipal.
+  </div>
+
+  <nav class="tabs" aria-label="Seções do protótipo">
+    <button data-tab="territorio">Visão territorial</button>
+    <button data-tab="diagnostico">Diagnóstico social</button>
+    <button data-tab="cadastro">Localidades e serviços</button>
+    <button data-tab="comparacao">Interfaces de coleta</button>
+    <button data-tab="metodologia">Fichas metodológicas</button>
+    <button data-tab="contestacao">Contestação comunitária</button>
+  </nav>
+
+  <main>
+    <!-- ============ VISÃO TERRITORIAL ============ -->
+    <section id="territorio" class="panel">
+      <div class="kpis">
+        <article><span>Questionários analíticos</span><strong>557</strong><small>222 em eventos; 335 porta a porta/distritos</small></article>
+        <article><span>Diagnóstico porta a porta</span><strong>83</strong><small>questionários detalhados com dados socioeconômicos</small></article>
+        <article><span>Estratos publicados</span><strong id="kpi-localidades">3</strong><small>áreas urbana, distrital e rural agregadas</small></article>
+        <article><span>Proteção territorial</span><strong id="kpi-cobertura">100%</strong><small>microterritórios e coordenadas suprimidos</small></article>
+        <article class="alert-card"><span>Resíduo de esquema</span><strong>40,6%</strong><small>"outro" em notícias supera o limite de 20%</small></article>
+        <article class="highlight-card"><span>Fossa predominante</span><strong>57,8%</strong><small>dos domicílios na amostra porta a porta</small></article>
+      </div>
+      <div class="grid-2">
+        <article class="map-card">
+          <div class="card-head"><div><h2>Geografia protegida</h2><p>O local é apresentado como Município A, no norte de Minas Gerais; coordenadas, propriedades e microterritórios não são publicados.</p></div><span class="badge">Anonimizado</span></div>
+          <div class="callout"><strong>Unidade pública:</strong> resultados municipais agregados e estratos opacos T01–T05. A versão pública não permite navegar até bairros, distritos, comunidades ou domicílios.</div>
+          <p class="source">Critério: minimização de dados e supressão de células territoriais pequenas.</p>
+        </article>
+        <aside class="side-card">
+          <h2>Camadas de equidade</h2>
+          <p>Camadas geográficas detalhadas permanecem fora do pacote cego. O protótipo conserva somente indicadores agregados e fichas metodológicas.</p>
+          <div class="formula">
+            <strong>Desvantagem territorial</strong>
+            <span>tempo + irregularidade + vulnerabilidade + baixa cobertura informacional</span>
+          </div>
+          <button class="primary" id="exportar">Gerar ficha da visão atual</button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ DIAGNÓSTICO SOCIAL ============ -->
+    <section id="diagnostico" class="panel" hidden>
+      <div class="card-head"><div><h2>Diagnóstico Social — Amostra porta a porta</h2><p>Dados de 83 questionários aplicados em áreas agregadas do Município A. Amostra de conveniência.</p></div><span class="badge">n=83</span></div>
+
+      <div class="diag-grid">
+        <!-- Renda -->
+        <article class="diag-card">
+          <h3>💰 Renda familiar</h3>
+          <p class="diag-sub">Distribuição por faixa de salário mínimo (n=82)</p>
+          <div id="chart-renda" class="chart-container"></div>
+        </article>
+
+        <!-- Saneamento - Esgoto -->
+        <article class="diag-card">
+          <h3>🚿 Esgotamento sanitário</h3>
+          <p class="diag-sub">Tipo de esgoto por domicílio (n=83)</p>
+          <div id="chart-esgoto" class="chart-container"></div>
+        </article>
+
+        <!-- Saneamento - Lixo -->
+        <article class="diag-card">
+          <h3>🗑️ Destino do lixo</h3>
+          <p class="diag-sub">Como os domicílios descartam resíduos (n=83)</p>
+          <div id="chart-lixo" class="chart-container"></div>
+        </article>
+
+        <!-- Moradia -->
+        <article class="diag-card">
+          <h3>🏠 Tipo de moradia</h3>
+          <p class="diag-sub">Propriedade da residência (n=83)</p>
+          <div id="chart-moradia" class="chart-container"></div>
+        </article>
+
+        <!-- Avaliação de Serviços -->
+        <article class="diag-card wide">
+          <h3>⭐ Avaliação de serviços públicos</h3>
+          <p class="diag-sub">Percepção dos respondentes sobre serviços municipais</p>
+          <div id="chart-servicos" class="chart-container"></div>
+        </article>
+
+        <!-- Gestão da prefeitura -->
+        <article class="diag-card">
+          <h3>🏛️ Gestão da prefeitura</h3>
+          <p class="diag-sub">Avaliação da gestão municipal (n=83)</p>
+          <div id="chart-gestao" class="chart-container"></div>
+        </article>
+
+        <!-- Vulnerabilidades -->
+        <article class="diag-card wide">
+          <h3>⚠️ Indicadores de vulnerabilidade</h3>
+          <p class="diag-sub">Sinais de vulnerabilidade social na amostra</p>
+          <div id="chart-vulnerabilidade" class="chart-container"></div>
+        </article>
+
+        <!-- Composição familiar -->
+        <article class="diag-card">
+          <h3>👨‍👩‍👧‍👦 Composição familiar</h3>
+          <p class="diag-sub">Pessoas por domicílio (n=83)</p>
+          <div id="chart-familia" class="chart-container"></div>
+        </article>
+
+        <!-- Lazer -->
+        <article class="diag-card">
+          <h3>🎯 Espaços de lazer</h3>
+          <p class="diag-sub">Espaços identificados pelos respondentes (n=82)</p>
+          <div id="chart-lazer" class="chart-container"></div>
+        </article>
+
+        <!-- Pedidos de melhorias -->
+        <article class="diag-card">
+          <h3>📣 Para quem pedem melhorias</h3>
+          <p class="diag-sub">Destinatários das demandas comunitárias (n=82)</p>
+          <div id="chart-melhorias" class="chart-container"></div>
+        </article>
+      </div>
+
+      <div class="callout">
+        <strong>Nota de leitura:</strong> os percentuais referem-se apenas à amostra de conveniência (83 questionários da segunda onda). Não devem ser generalizados para a população do Município A.
+      </div>
+    </section>
+
+    <!-- ============ CADASTRO ============ -->
+    <section id="cadastro" class="panel" hidden>
+      <div class="card-head"><div><h2>Cadastro de localidades e serviços</h2><p>Registros demonstrativos, armazenados no navegador.</p></div><button class="primary" id="novo-registro">Novo registro</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Localidade</th><th>Tipo</th><th>Serviço</th><th>Regularidade</th><th>Fonte</th><th>Ação</th></tr></thead><tbody id="cadastro-body"></tbody></table></div>
+      <form id="cadastro-form" class="form-grid" hidden>
+        <label>Localidade<input name="localidade" required></label>
+        <label>Tipo<select name="tipo"><option>Sede/bairro</option><option>Distrito</option><option>Comunidade rural</option></select></label>
+        <label>Serviço<input name="servico" required></label>
+        <label>Regularidade<select name="regularidade"><option>Regular</option><option>Intermitente</option><option>Não verificada</option></select></label>
+        <button class="primary" type="submit">Salvar</button><button type="button" id="cancelar-registro">Cancelar</button>
+      </form>
+    </section>
+
+    <!-- ============ COMPARAÇÃO ============ -->
+    <section id="comparacao" class="panel" hidden>
+      <div class="card-head"><div><h2>Comparação entre interfaces de coleta</h2><p>Diferenças descritivas; não representam efeito causal puro do método.</p></div><span class="badge">n válido varia por item</span></div>
+      <div id="bars" class="bars"></div>
+      <div class="callout"><strong>Leitura operacional:</strong> a coleta domiciliar/distrital tornou mais visíveis fossa, proteção social e desemprego, enquanto a coleta em eventos registrou mais rede pública de esgoto. A diferença orienta busca ativa e auditoria de cobertura, não uma generalização populacional.</div>
+    </section>
+
+    <!-- ============ METODOLOGIA ============ -->
+    <section id="metodologia" class="panel" hidden>
+      <div class="card-head"><div><h2>Fichas metodológicas automáticas</h2><p>Cada indicador explicita definição, numerador, denominador, fonte, atualização, limitações e usos proibidos.</p></div></div>
+      <div id="method-cards" class="method-grid"></div>
+    </section>
+
+    <!-- ============ CONTESTAÇÃO ============ -->
+    <section id="contestacao" class="panel" hidden>
+      <div class="grid-2">
+        <article class="side-card">
+          <h2>Correção ou contestação comunitária</h2>
+          <p>O envio não altera automaticamente o dado publicado. Ele abre uma trilha de revisão com justificativa e resposta.</p>
+          <form id="contestacao-form" class="stack">
+            <label>Localidade<input name="localidade" required></label>
+            <label>Indicador ou serviço<input name="item" required></label>
+            <label>Tipo<select name="tipo"><option>Correção factual</option><option>Atualização</option><option>Contestação metodológica</option><option>Solicitação de inclusão</option></select></label>
+            <label>Relato<textarea name="relato" rows="5" required></textarea></label>
+            <label>Forma de retorno (opcional)<input name="contato"></label>
+            <button class="primary" type="submit">Registrar manifestação</button>
+          </form>
+        </article>
+        <aside class="side-card">
+          <h2>Trilha local</h2>
+          <div id="manifestacoes" class="empty">Nenhuma manifestação registrada neste navegador.</div>
+          <h3>Proteção de dados</h3>
+          <p>Não inclua diagnóstico individual, CPF, endereço residencial ou informação sensível desnecessária. A versão municipal deve adotar autenticação, controle de acesso, retenção limitada e resposta auditável.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>Protótipo offline-first — operação territorial de diagnóstico socioambiental — versão de revisão</footer>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
